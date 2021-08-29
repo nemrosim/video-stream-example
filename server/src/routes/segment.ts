@@ -4,6 +4,14 @@ import express from 'express';
 const router = express.Router();
 
 /**
+ * Will return a poster image.
+ */
+router.get('/segments-poster', (request, response) => {
+    const resolvedPath = path.resolve('assets/unreal-poster.jpg');
+    response.sendFile(resolvedPath);
+});
+
+/**
  * This route will return an .m3u8 file with all video file segments info
  * If you don't have any files in /segments folder -> run "generate.mjs" file:
  * it will create a m3u8 list with segmented videos.
