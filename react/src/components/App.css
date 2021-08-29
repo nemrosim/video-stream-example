@@ -1,0 +1,39 @@
+.image-container {
+      position: absolute;
+      width: 100vw;
+      height: 100%;
+}
+
+.container {
+      display: flex;
+      flex-direction: column;
+      background-color: #585858;
+}
+
+.player-container {
+      width: 600px;
+      margin: 20px;
+      align-self: center;
+}
+
+.title {
+      -webkit-text-size-adjust: 100%;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+      line-height: 1.1;
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 3.125rem;
+      position: relative;
+}
+
+.image {
+      filter: blur(1px) brightness(50%);
+      opacity: 0.8;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+}

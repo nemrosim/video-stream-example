@@ -29,7 +29,7 @@ app.get('/some-path', (req, res) => {
      * will return "/Users/{username}/{path}/video-stream-example/server/src"
      */
     console.log(root)
-    
+
 })
 ```
 
@@ -83,13 +83,13 @@ app.get('/video-chunk', (request, response) => {
          bytes=67982672-
          */
 
-        const { start, end, chunksize } = getChunkProps(range, fileSize);
+        const {start, end, chunksize} = getChunkProps(range, fileSize);
 
         /*
             options can include "start" and "end" values to read a range of bytes
              from the file instead of the entire file.
          */
-        const readStream = fs.createReadStream(resolvedPath, { start, end });
+        const readStream = fs.createReadStream(resolvedPath, {start, end});
 
         /*
             The HTTP 206 Partial Content success status response code
@@ -117,5 +117,34 @@ app.get('/video-chunk', (request, response) => {
         });
         fs.createReadStream(resolvedPath).pipe(response);
     }
+});
+```
+
+# Dynamic segment
+
+```ts
+router.get('/dynamic-segment', (request, response) => {
+    const stream = fs.createReadStream(VIDEO_FILE_PATH);
+
+    const command = ffmpeg(stream, {
+        timeout: 1000,
+    })
+        .format('flv')
+        .on('progress', function (progress) {
+            console.log('Processing. Timemark: -> ' + progress.timemark);
+        })
+        .on('end', (stdout, stderr) => {
+            console.log('Transcoding succeeded !');
+        })
+        .on('error', (error) => {
+            console.log('error', error);
+        });
+
+    const ffstream = command.pipe();
+    ffstream.on('data', function (chunk) {
+        response.send(chunk);
+    });
+
+    command.run();
 });
 ```

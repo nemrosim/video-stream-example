@@ -22,6 +22,7 @@ module.exports = {
     plugins: ['react', 'jsx-a11y', '@typescript-eslint'],
     rules: {
         'react-hooks/exhaustive-deps': 'error',
+        'react/prop-types': 'off',
         'no-var': 'error',
         'brace-style': 'error',
         'prefer-template': 'error',
